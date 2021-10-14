@@ -5,7 +5,7 @@
 
 class AccountManager : public Accounts {
 private:
-	int retries;
+	int m_retries;
 public: 
 	AccountManager();
 	virtual ~AccountManager();

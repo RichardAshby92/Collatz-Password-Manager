@@ -1,25 +1,50 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "Accounts.h"
 
-Accounts::Accounts(std::string user, std::string pass) : m_username{ user } {
+Accounts::Accounts()
+{
 
 }
 
 Accounts::~Accounts()
 {
+	//Heap allocated, remeber to delete all;
+}
+
+void Accounts::createAccount()
+{
+	std::cout << "Creating an account \nEnter a Username: " << std::endl;
+	setUsername();
+	std::cout << "Enter a Password" << std::endl;
+	createPassword();
+	Encrypt(m_userpassword);
+	Print();
+	Store();
+}
+
+void Accounts::setUsername()
+{
+	std::cin >> m_username;
+	userDetes = m_username;
+}
+
+void Accounts::createPassword() 
+{
+
+	std::cin >> m_userpassword;
+	L = size(m_userpassword);
 
 }
 
-int* Accounts::Encrypt(std::string a)
+void Accounts::Encrypt(std::string a)
 {
 	{
-		const int L = size(a);
 		int count = 0;
 		int offset = 0;
-		int* P = new int[L];
 		unsigned char n = a[0];
-
+		const int L = size(m_userpassword);
 
 		for (int i = 0; i < L; i++)
 		{
@@ -33,31 +58,31 @@ int* Accounts::Encrypt(std::string a)
 			P[i] = count;
 			offset = count;
 			count = 0;
-
 		}
-
-		m_userpassword = P;
-		return P;
 	}
 }
 
-int* Accounts::Store(std::string user, std::string pass)
+void Accounts::Print()
 {
-	m_userDetes[i] = m_username + m_userpassword;
-	i++;
-}
 
-void Accounts::Print(std::string user, std::string pass)
-{
-	const int L = size(pass);
+	std::string temp;
 
-	for (int i = 0; i < L; i++) {
-
-		std::cout << P[i] << " ";
+	for (int i = 0; i < L; i++) 
+	{
+		 temp = temp + std::to_string(P[i]);
 	}
+
+	userDetes = userDetes + " " + temp;
 }
 
-void Accounts::ExportFile()
+void Accounts::Store()
 {
-
+	std::ofstream MyFile("password.txt", std::ios::app);
+	MyFile << userDetes << "\n";
+	MyFile.close();
 }
+
+
+
+
+	

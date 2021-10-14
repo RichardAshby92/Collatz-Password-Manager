@@ -6,16 +6,21 @@ class Accounts {
 private:
 	std::string m_username;
 	std::string m_userpassword;
-	std::string* m_userDetes = new std::string[];
-	int static i;
+	int L = size(m_userpassword);
+	int* P = new int[L];
+	std::string userDetes{ "0" };
+	//std::string* m_userDetes = new std::string[L];
+	//int static i;
+	
 public:
 	Accounts();
-	Accounts(std::string user, std::string pass);
 	virtual ~Accounts();
-	int* Encrypt(std::string a);
-	int* Store(std::string user, std::string pass);
-	void Print(std::string user, std::string pass);
-	void ExportFile();
+	void createAccount();
+	void setUsername();
+	void createPassword();
+	void Encrypt(std::string a);
+	void Print();
+	void Store();
 };
 
 

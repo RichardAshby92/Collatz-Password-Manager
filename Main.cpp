@@ -1,56 +1,48 @@
 #include <iostream>
 #include <string>
 #include "Accounts.h"
-#include "AccountManager.h"
-#include "PasswordStrengthAnalysis.h"
 
-using namespace std;
+
 
 int main()
 {
-	AccountManager a1;
-	//Menu and options
-	cout << "Collatz Password Manager \nOptions: \nEnter 1 to create account \nEnter 2 to sign in \nEnter 3 to Create password strength anylsis file \nEnter 4 to Anaylsis a password strength file" << endl;
-
-	//Main Loop
+	Accounts a1;
 	int x = 0;
-	int entries = 0;
 	bool t = true;
-	//int* userDetes = new int[L][];
+
+	std::cout << "Collatz Password Manager \nOptions: \nEnter 1 to create account \nEnter 2 to sign in \n";
+	std::cout << "Enter 3 to generate a password strength anylsis file \nEnter 4 to Anaylsis a password strength file \n";
+	std::cout << "Enter 0 to exit the program" << std::endl;
 	
 	while (t) {
+		//Menu and options
+
 		std::cin >> x;
 		switch (x) {
+		case 0:
+			t = false;
+			break;
 		case 1:
-		{cout << "Creating an account \nEnter a Username: " << endl;
-		string username = "0";
-		string userpassword = "0";
-		std::cin >> username;
-		cout << "Enter a Password: " << endl;
-		std::cin >> userpassword;
-		Accounts a1(username, userpassword);
-		a1.Store(username, userpassword);
-		a1.Print(username, userpassword);
-		t = false; }
+			a1.createAccount();
+			std::cout << "Returned to menu\n";
 			break;
 		case 2:
-			cout << "Sign in" << endl;
-			t = false;
+			std::cout << "Sign in" << std::endl;
 			break;
 		case 3:
-			cout << "Program 3" << endl;
-			t = false;
+			std::cout << "Program 3" << std::endl;
 			break;
 		case 4:
-			cout << "Program 4" << endl;
-			t = false;
+			std::cout << "Program 4" << std::endl;
 			break;
 		default:
-			cout << "Invalid Selection" << endl;
+			std::cout << "Invalid Selection" << std::endl;
+			break;
 		}
 	}
 
 
 	return 0;
 }
+
 
