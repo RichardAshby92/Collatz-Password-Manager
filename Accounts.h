@@ -9,12 +9,10 @@ private:
 	int L = size(m_userpassword);
 	int* P = new int[L];
 	std::string userDetes{ "0" };
-	//std::string* m_userDetes = new std::string[L];
-	//int static i;
 	
 public:
 	Accounts();
-	virtual ~Accounts();
+	~Accounts();
 	void createAccount();
 	void setUsername();
 	void createPassword();

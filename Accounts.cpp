@@ -10,7 +10,8 @@ Accounts::Accounts()
 
 Accounts::~Accounts()
 {
-	//Heap allocated, remeber to delete all;
+	delete[] P;
+	
 }
 
 void Accounts::createAccount()
@@ -81,7 +82,6 @@ void Accounts::Store()
 	MyFile << userDetes << "\n";
 	MyFile.close();
 }
-
 
 
 
