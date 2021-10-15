@@ -6,6 +6,7 @@
 
 int main()
 {
+
 	Accounts a1;
 	int x = 0;
 	bool t = true;
@@ -27,7 +28,8 @@ int main()
 			std::cout << "Returned to menu\n";
 			break;
 		case 2:
-			std::cout << "Sign in" << std::endl;
+			a1.signIn();
+			std::cout << "Returned to menu\n";
 			break;
 		case 3:
 			std::cout << "Program 3" << std::endl;
@@ -40,7 +42,6 @@ int main()
 			break;
 		}
 	}
-
 
 	return 0;
 }

@@ -1,14 +1,18 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
+#include <fstream>
 
 class Accounts {
 private:
+	std::fstream MyFile;
 	std::string m_username;
 	std::string m_userpassword;
-	int L = size(m_userpassword);
-	int* P = new int[L];
 	std::string userDetes{ "0" };
+	std::vector<int> encryptValue;
+	int L{ 0 };
+	std::string passwordCompare;
 	
 public:
 	Accounts();
@@ -19,6 +23,9 @@ public:
 	void Encrypt(std::string a);
 	void Print();
 	void Store();
+	void signIn();
+	bool readFile();
+	bool passwordCheck();
 };
 
 
