@@ -1,13 +1,13 @@
 #include <iostream>
 #include <string>
-#include "Accounts.h"
-
-
+//#include "Accounts.h"
+#include "PasswordStrengthAnalysis.h"
 
 int main()
 {
-
 	Accounts a1;
+	PasswordStrengthAnalysis p1;
+
 	int x = 0;
 	bool t = true;
 
@@ -25,24 +25,24 @@ int main()
 			break;
 		case 1:
 			a1.createAccount();
-			std::cout << "Returned to menu\n";
+
 			break;
 		case 2:
 			a1.signIn();
-			std::cout << "Returned to menu\n";
 			break;
 		case 3:
-			std::cout << "Program 3" << std::endl;
+			p1.generateFile();
 			break;
 		case 4:
-			std::cout << "Program 4" << std::endl;
+
 			break;
 		default:
 			std::cout << "Invalid Selection" << std::endl;
 			break;
 		}
+		
+		std::cout << "Returned to menu\n";
 	}
-
 	return 0;
 }
 

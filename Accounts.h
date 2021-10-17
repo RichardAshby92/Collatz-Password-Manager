@@ -9,6 +9,7 @@ private:
 	std::fstream MyFile;
 	std::string m_username;
 	std::string m_userpassword;
+	std::string m_passEncrypt;
 	std::string userDetes{ "0" };
 	std::vector<int> encryptValue;
 	int L{ 0 };
