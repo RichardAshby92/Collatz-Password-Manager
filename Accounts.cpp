@@ -43,7 +43,6 @@ void Accounts::Encrypt(std::string a)
 		int count = 0;
 		int offset = 0;
 		unsigned char n = a[0];
-		L = size(m_userpassword);
 		encryptValue.resize(L);
 
 		for (int i = 0; i < L; i++)

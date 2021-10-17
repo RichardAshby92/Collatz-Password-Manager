@@ -1,12 +1,15 @@
 #include <iostream>
 #include <string>
 //#include "Accounts.h"
-#include "PasswordStrengthAnalysis.h"
+#include "FileGeneration.h"
+#include "AccountManager.h"
+#include "PasswordAnalysis.h"
 
 int main()
 {
 	Accounts a1;
-	PasswordStrengthAnalysis p1;
+	FileGeneration p1;
+	PasswordAnalysis x1;
 
 	int x = 0;
 	bool t = true;
@@ -25,7 +28,6 @@ int main()
 			break;
 		case 1:
 			a1.createAccount();
-
 			break;
 		case 2:
 			a1.signIn();
@@ -34,7 +36,7 @@ int main()
 			p1.generateFile();
 			break;
 		case 4:
-
+			x1.runAnalysis();
 			break;
 		default:
 			std::cout << "Invalid Selection" << std::endl;
