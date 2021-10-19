@@ -12,10 +12,11 @@ protected:
 		struct node* right = NULL;
 	};
 	struct node* root = NULL;
+	int level{ 1 };
 public:
 	BST();
 	~BST();
-	void insert_integer(struct node** tree, int value);
+	void insert_integer(struct node** tree, int x);
 	void print_tree(struct node* tree);
 	void terminate_tree(struct node* tree);
 };

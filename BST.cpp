@@ -28,22 +28,30 @@ BST::~BST()
 	root->value = NULL;*/
 }
 
-void BST::insert_integer(struct node** tree, int value)
+void BST::insert_integer(struct node** tree, int x)
 {
-	if (*tree == NULL)
+	while (level < 100)
 	{
-		*tree = new node;
-		(*tree)->value = value;
-		(*tree)->left = NULL;
-		(*tree)->right = NULL;
-	}
+		if (*tree == NULL) //create new node
+		{
+			*tree = new node;
+			(*tree)->value = x;
+			(*tree)->left = NULL;
+			(*tree)->right = NULL;
+			level++;
+		}
 
-	else
-	{
-		if (value < (*tree)->value)
-			insert_integer(&(*tree)->left, value);
+		std::cout << (*tree)->value << std::endl;
+	
+		if ((*tree)->value > 4 && (((*tree)->value) - 4) % 6 == 0)
+		{
+			insert_integer(&(*tree)->left, (x - 1) / 3);
+		}
+
 		else
-			insert_integer(&(*tree)->right, value);
+		{				
+			insert_integer(&(*tree)->right, 2 * x);
+		}					
 	}
 }
 
@@ -54,9 +62,12 @@ void BST::print_tree(struct node* tree)
 		print_tree(tree->left);
 	}
 
+	std::cout << (*tree).value << " ";
+
 	if (tree->right != NULL)
 	{
 		print_tree(tree->right);
+		std::cout << (*tree).value << " ";
 	}
 }
 
