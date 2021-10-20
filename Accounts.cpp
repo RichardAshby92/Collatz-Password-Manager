@@ -42,12 +42,12 @@ void Accounts::Encrypt(std::string a)
 {
 		int count = 0;
 		int offset = 0;
-		unsigned char n = a[0];
+		int n = a[0];
 		encryptValue.resize(L);
 
 		for (int i = 0; i < L; i++)
 		{
-			unsigned char n = a[i];
+			n = a[i];
 
 			for (n = n + offset; n != 1; count++)
 			{

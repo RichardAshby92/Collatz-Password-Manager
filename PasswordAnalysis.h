@@ -2,9 +2,9 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-#include "BST.h"
+#include "Accounts.h"
 
-class PasswordAnalysis : public BST{
+class PasswordAnalysis : public Accounts {
 private:
 	struct node {
 		virtual ~node()
@@ -23,7 +23,7 @@ private:
 	node* tree = nullptr;
 	std::vector<int> valuesAtDesiredHeight;
 	int desiredHeight = 10;
-	std::ifstream testFile{"passwordtest"};
+	std::ifstream testFile{ "passwordtest" };
 	std::string encryptedLine;
 public:
 	PasswordAnalysis();
@@ -33,5 +33,6 @@ public:
 	node* newNode(int x, int i);
 	void generateTree(node* tree, const int desiredHeight, std::vector<int>& valuesAtDesiredHeight);
 	std::string getLine();
-	void decryptLine();
+	void decryptLine(std::string a);
+	int Encrypt(int x);
 };

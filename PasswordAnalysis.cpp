@@ -13,16 +13,20 @@ PasswordAnalysis::~PasswordAnalysis() {
 
 void PasswordAnalysis::runAnalysis() 
 {
-	std::cout << "Running Password Analysis" << endl;
-	std::cout << "Getting Test Passwords" << endl;
+	std::cout << "Running Password Analysis" << std::endl;
+	//std::cout << "Getting Test Passwords" << std::endl;
+
+	getLine();
+	std::cout << encryptedLine << std::endl;
+	//int a = std::stoi(encryptedLine);
+	int a = 25;
+	std::cout << a << std::endl;
 
 	node* tree = newNode(1, 0);	
-	generateTree(tree, desiredHeight, valuesAtDesiredHeight);
-	
-	getLine();
+	generateTree(tree, a, valuesAtDesiredHeight);
 
-	decryptLine();
-	std::cout << "Analysis complete" << endl;
+	decryptLine(encryptedLine);
+	std::cout << "Analysis complete" << std::endl;
 }
 
 bool PasswordAnalysis::Checker(int x) {
@@ -39,15 +43,15 @@ PasswordAnalysis::node* PasswordAnalysis::newNode(int x, int i)
 	node* N = new node;
 	N->value = x;
 	N->level = i;
-	N->right = nullptr; //Tip: DON'T USE NULL it is basically depricated and can lead to dodgy shinanigans
-	N->left = nullptr;  // nullptr is the right value for an empty pointer
+	N->right = nullptr; 
+	N->left = nullptr;  
 
 	return N;
 }
 
 void PasswordAnalysis::generateTree(node* tree, const int desiredHeight, std::vector<int>& valuesAtDesiredHeight)
 {
-	std::cout << tree->value << std::endl;
+	//std::cout << tree->value << std::endl;
 	//std::cout << tree->level << std::endl;
 
 	if (tree->level == desiredHeight)
@@ -77,12 +81,39 @@ void PasswordAnalysis::generateTree(node* tree, const int desiredHeight, std::ve
 std::string PasswordAnalysis::getLine()
 {
 	testFile.open("passwordtest.txt", std::ios::in);
-	std::string temp = getline(testFile, encryptedLine);
+	getline(testFile, encryptedLine);
 
 	testFile.close();
-	return temp;
+	return encryptedLine;
 }
 
-void PasswordAnalysis::decryptLine() {
+void PasswordAnalysis::decryptLine(std::string encryptedLine) {
+	int a = std::stoi(encryptedLine);
+	//pasrse line
 
+	int i = 0;
+	while (1)
+	{
+		int Attempt = Encrypt(valuesAtDesiredHeight[i]);
+		if (Attempt == a)
+		{
+			std::cout << "password guessed" << std::endl;
+			break;
+		}
+
+		i++;
+	}
+
+}
+
+int PasswordAnalysis::Encrypt( int n)
+{
+	int count = 0;
+
+		for (; n != 1; count++)
+		{
+			n = (n % 2 == 0) ? n / 2 : 3 * n + 1;
+		}
+
+	return count;
 }
