@@ -21,7 +21,6 @@ int main()
 	
 	while (t) {
 		//Menu and options
-
 		std::cin >> x;
 		switch (x) {
 		case 0:

@@ -24,15 +24,16 @@ private:
 	std::vector<int> valuesAtDesiredHeight;
 	int desiredHeight = 10;
 	std::ifstream testFile{ "passwordtest" };
-	std::string encryptedLine;
+	std::vector<int> encryptLine;
+	int passwordsCracked = 0;
 public:
 	PasswordAnalysis();
 	~PasswordAnalysis();
 	void runAnalysis();
 	bool Checker(int x);
 	node* newNode(int x, int i);
-	void generateTree(node* tree, const int desiredHeight, std::vector<int>& valuesAtDesiredHeight);
-	std::string getLine();
-	void decryptLine(std::string a);
+	void generateTree(node* tree, const int desiredHeight);
+	void getLine();
+	void decryptLine(int x);
 	int Encrypt(int x);
 };

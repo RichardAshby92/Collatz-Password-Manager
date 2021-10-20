@@ -14,9 +14,6 @@ public:
 	void generateFile();
 	void generateArray();
 	void printFile();
-	void RunAnalysis();
-	std::string gen_easy(int L);
-	std::string gen_hard(int L);
-	std::string Encrypt(std::string a, int x);
+	int encrypt(int x);
 
 };

@@ -28,7 +28,6 @@ void Accounts::createAccount()
 void Accounts::setUsername()
 {
 	std::cin >> m_username;
-	//check for existing username
 	userDetes = m_username;
 }
 
@@ -40,31 +39,31 @@ void Accounts::createPassword()
 
 void Accounts::Encrypt(std::string a)
 {
-		int count = 0;
-		int offset = 0;
-		int n = a[0];
-		encryptValue.resize(L);
+	int count = 0;
+	int offset = 0;
+	int n = a[0];
+	encryptValue.resize(L);
 
-		for (int i = 0; i < L; i++)
+	for (int i = 0; i < L; i++)
+	{
+		n = a[i];
+
+		for (n = n + offset; n != 1; count++)
 		{
-			n = a[i];
-
-			for (n = n + offset; n != 1; count++)
-			{
 				n = (n % 2 == 0) ? n / 2 : 3 * n + 1;
-			}
-
-			encryptValue[i] = count;
-			offset = count;
-			count = 0;
 		}
 
-		for (int i = 0; i < L; i++)
-		{
-			m_passEncrypt = m_passEncrypt + std::to_string(encryptValue[i]);
-		}
-		userDetes = userDetes + " " + m_passEncrypt;
-		m_passEncrypt = "";
+		encryptValue[i] = count;
+		offset = count;
+		count = 0;
+	}
+
+	for (int i = 0; i < L; i++)
+	{
+		m_passEncrypt = m_passEncrypt + std::to_string(encryptValue[i]);
+	}
+	userDetes = userDetes + " " + m_passEncrypt;
+	m_passEncrypt = "";
 }
 
 void Accounts::Print()
@@ -87,8 +86,13 @@ void Accounts::signIn()
 	std::cout << "Sign in \n Enter a Username : " << std::endl;
 	std::cin >> m_username;
 	int passAttempts = 3;
-	if (readFile());
-	else return;
+	try { if (readFile()); 
+		else return;
+		}
+	catch (const std::string fileMissing) {
+		return;
+	}
+
 	while (passAttempts > 0)
 	{
 		if (passwordCheck())
@@ -105,20 +109,23 @@ void Accounts::signIn()
 	}
 }
 
-bool Accounts::readFile()
-{
-	//missing file exc eption here
-	 MyFile.open("password.txt", std::ios::in);
-	 while (getline(MyFile, passwordCompare)) {
-		 if (passwordCompare.find(m_username) != std::string::npos)
-		 { 
-			 MyFile.close();
-			 return true;
-		 }
-	 }
-	 std::cout << "Username not found";
-	 MyFile.close();
-	 return false;
+bool Accounts::readFile() throw ()
+{	
+	MyFile.open("password.txt", std::ios::in) ;
+	if (MyFile.fail()) {
+		throw "Missing File ";
+	}
+
+	while (getline(MyFile, passwordCompare)) {
+		if (passwordCompare.find(m_username) != std::string::npos)
+		{
+			MyFile.close();
+			return true;
+		}
+	}
+	std::cout << "Username not found" << std::endl;
+	MyFile.close();
+	return false;	
 }
 
 bool Accounts::passwordCheck() 
