@@ -4,26 +4,22 @@
 #include <chrono>
 #include "PasswordAnalysis.h"
 
-
-PasswordAnalysis::PasswordAnalysis() {
-
-}
-
-PasswordAnalysis::~PasswordAnalysis() {
-
+void PasswordAnalysis::Execute()
+{
+	runAnalysis();
 }
 
 void PasswordAnalysis::runAnalysis() 
-{
+{//Looped for each batch of 100
 	std::cout << "Running Password Analysis" << std::endl;
-
+	passwordsCracked = 0;
 	auto start = std::chrono::high_resolution_clock::now();
 	getLine(); // get batch of 100 lines;
 
 	for (int i = 0; i < 100; i++) {
 
-		node* tree = newNode(1, 0);
-		generateTree(tree, encryptLine[i]);
+		std::unique_ptr<node> tree = std::make_unique<node>();
+		generateTree(*tree.get(), encryptLine[i]);
 		decryptLine(encryptLine[i]);
 	}
 
@@ -36,53 +32,34 @@ void PasswordAnalysis::runAnalysis()
 }
 
 bool PasswordAnalysis::Checker(int x) {
-	if (x > 4 && (x - 4) % 6 == 0) {
-		return true;
-	}
-	else {
-
-		return false;
-	}
+	return (x > 4 && (x - 4) % 6 == 0);
 }
 
-PasswordAnalysis::node* PasswordAnalysis::newNode(int x, int i)
+void PasswordAnalysis::generateTree(node& tree, const int desiredHeight)
 {
-	node* N = new node;
-	N->value = x;
-	N->level = i;
-	N->right = nullptr; 
-	N->left = nullptr;  
-
-	return N;
-}
-
-void PasswordAnalysis::generateTree(node* tree, const int desiredHeight)
-{
-	if (tree->level == desiredHeight)
+	if (tree.level == desiredHeight)
 	{
-		if (tree->value < 255) {
-			valuesAtDesiredHeight.push_back(tree->value);
+		if (tree.value < 255) {
+			valuesAtDesiredHeight.push_back(tree.value);
 			return;
 		}
 	}
 
-	if (tree->value < 100000)
+	if (tree.value < 100000)
 	{
-
-		if (Checker(tree->value))
+		if (Checker(tree.value))
 		{
-			tree->left = newNode(((tree->value - 1) / 3), tree->level + 1);
-			generateTree(tree->left, desiredHeight);
+			tree.left = std::make_unique<node>(((tree.value - 1) / 3), tree.level + 1);
+			generateTree(*tree.left.get(), desiredHeight);
 
-			tree->right = newNode((tree->value * 2), tree->level + 1);
-			generateTree(tree->right, desiredHeight);
+			tree.right = std::make_unique<node>((tree.value * 2), tree.level + 1);
+			generateTree(*tree.right.get(), desiredHeight);
 		}
 		else
 		{
-			tree->left = newNode(((tree->value) * 2), tree->level + 1);
-			generateTree(tree->left, desiredHeight);
+			tree.left = std::make_unique<node>(((tree.value) * 2), tree.level + 1);
+			generateTree(*tree.left.get(), desiredHeight);
 		}
-
 		return;
 	}
 }
@@ -103,21 +80,19 @@ void PasswordAnalysis::getLine()
 
 void PasswordAnalysis::decryptLine(int x) {
 	
-		int n = 0;
-		while (n < valuesAtDesiredHeight.size())
+	for(auto value : valuesAtDesiredHeight)
+	{
+		int Attempt = Encrypt(value);
+		if (Attempt == x)
 		{
-			int Attempt = Encrypt(valuesAtDesiredHeight[n]);
-			if (Attempt == x)
-			{
-				char out = char(valuesAtDesiredHeight[n]);
-				std::cout << "password guessed" << std::endl;
-				std::cout << out << std::endl;
-				passwordsCracked++;
+			char out = char(value);
+			std::cout << "password guessed" << std::endl;
+			std::cout << out << std::endl;
+			passwordsCracked++;
 
-				break;
-			}
-			n++;
-		}		
+			break;
+		}
+	}
 }
 
 int PasswordAnalysis::Encrypt(int n)

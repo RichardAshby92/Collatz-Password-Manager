@@ -31,10 +31,10 @@ int main()
 			a1.Execute();
 			break;
 		case 3:
-			p1.generateFile();
+			p1.Execute();
 			break;
 		case 4:
-			x1.runAnalysis();
+			x1.Execute();
 			break;
 		case 5:
 			t = false;

@@ -7,13 +7,13 @@
 
 class Accounts : public PasswordTool {
 protected:
-	std::string m_username;
-	std::string m_userpassword;
-	std::string m_passEncrypt;
+	std::string m_username{ "" };
+	std::string m_userpassword{ "" };
+	std::string m_passEncrypt{ "" };
 	std::string userDetes{ "0" };
 	int L{ 0 };
-	std::string passwordCompare;
-	std::vector<int> encryptValue;
+	std::string passwordCompare{ "" };
+	std::vector<int> encryptValue{ 0 };
 	
 public:
 	Accounts() {};

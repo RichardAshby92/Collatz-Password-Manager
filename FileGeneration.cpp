@@ -3,6 +3,12 @@
 #include <algorithm>
 #include "FileGeneration.h"
 
+
+void FileGeneration::Execute()
+{
+	generateFile();
+}
+
 void FileGeneration::generateFile()
 {
 	std::cout << "Generating File" << std::endl;
@@ -28,7 +34,7 @@ void FileGeneration::generateArray() {
 		s = "";
 
 		while (x > 0) {
-			temp = encrypt((rand() % 10 + 97) + offset); //missing unique generation
+			temp = encrypt((rand() % 10 + 32) + offset); 
 			offset = temp;
 			s += std::to_string(temp);
 			x--;
@@ -56,24 +62,25 @@ void FileGeneration::generateArray() {
 		while (x > 0)
 		{
 			srand(i);
-			temp = (encrypt(rand() % 100 + 97) + offset);
+			temp = (encrypt(rand() % 100 + 32) + offset); //missing unique generation
 			offset = temp;
 			s += std::to_string(temp);
 			x--;
 		}
-
 		m_passArrayEncrypt[i] = s;
 	}	
 }
 
 void FileGeneration::printFile()
 {
-	passwordTest.open("passwordTest.txt", std::ios::out);
-	for (int i = 0; i < 20000; i++)
+	const std::string filePath("passwordTest.txt");
+	WriteToFile(filePath, std::ios::out, [this](std::fstream& file)
 	{
-		passwordTest << m_passArrayEncrypt[i] << "\n";
-	}
-	passwordTest.close();
+		for (int i = 0; i < 20000; i++)
+		{
+			file << m_passArrayEncrypt[i] << "\n";
+		}
+	});
 }
 
 int FileGeneration::encrypt(int n)

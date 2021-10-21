@@ -55,7 +55,7 @@ void Accounts::Encrypt(std::string a)
 		count = 0;
 	}
 
-		for (auto value : encryptValue)
+	for (auto value : encryptValue)
 	{
 		m_passEncrypt += std::to_string(value);
 	}
