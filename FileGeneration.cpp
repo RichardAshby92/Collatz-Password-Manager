@@ -40,7 +40,7 @@ void FileGeneration::generateArray() {
 			x--;
 		}
 		
-		m_passArrayEncrypt[i] = s;
+		passArrayEncrypted[i] = s;
 	}
 
 	n = 0;
@@ -67,7 +67,7 @@ void FileGeneration::generateArray() {
 			s += std::to_string(temp);
 			x--;
 		}
-		m_passArrayEncrypt[i] = s;
+		passArrayEncrypted[i] = s;
 	}	
 }
 
@@ -78,7 +78,7 @@ void FileGeneration::printFile()
 	{
 		for (int i = 0; i < 20000; i++)
 		{
-			file << m_passArrayEncrypt[i] << "\n";
+			file << passArrayEncrypted[i] << "\n";
 		}
 	});
 }

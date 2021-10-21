@@ -15,14 +15,18 @@ int main()
 
 	std::cout << "Collatz Password Manager \nOptions: \nEnter 1 to create account \nEnter 2 to sign in \n";
 	std::cout << "Enter 3 to generate a password strength anylsis file \nEnter 4 to Anaylsis a password strength file \n";
-	std::cout << "Enter 5 to exit the program" << std::endl;
+	std::cout << "Enter 0 to exit the program" << std::endl;
 	
 	while (t) {
 		//Menu and options
-	std::cin >> x;
+		std::cin >> x;
+		if (!std::cin.good()) {
+			std::cout << "Invalid Selection" << std::endl;
+			break;
+		}
 		switch (x) {
 		case 0:
-			std::cout << "Invalid Selection" << std::endl;;
+			t = false;
 			break;
 		case 1:
 			a1.createAccount();
@@ -35,9 +39,6 @@ int main()
 			break;
 		case 4:
 			x1.Execute();
-			break;
-		case 5:
-			t = false;
 			break;
 		default:
 			std::cout << "Invalid Selection" << std::endl;

@@ -33,6 +33,7 @@ private:
 	std::ifstream testFile{ "passwordtest" };
 	std::vector<int> encryptLine{ 0 };
 	int passwordsCracked{ 0 };
+
 public:
 	PasswordAnalysis() {};
 	~PasswordAnalysis() {};
