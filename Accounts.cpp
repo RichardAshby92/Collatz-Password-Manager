@@ -1,17 +1,12 @@
 #include <iostream>
 #include <string>
-#include <fstream>
+#include <sstream>
 #include<cstdlib>
 #include "Accounts.h"
 
-Accounts::Accounts()
+void Accounts::Execute()
 {
-
-}
-
-Accounts::~Accounts()
-{
-
+	signIn();
 }
 
 void Accounts::createAccount()
@@ -41,7 +36,9 @@ void Accounts::Encrypt(std::string a)
 {
 	int count = 0;
 	int offset = 0;
+	m_passEncrypt = "";
 	int n = a[0];
+	L = a.size();
 	encryptValue.resize(L);
 
 	for (int i = 0; i < L; i++)
@@ -58,27 +55,29 @@ void Accounts::Encrypt(std::string a)
 		count = 0;
 	}
 
-	for (int i = 0; i < L; i++)
+		for (auto value : encryptValue)
 	{
-		m_passEncrypt = m_passEncrypt + std::to_string(encryptValue[i]);
+		m_passEncrypt += std::to_string(value);
 	}
+	
 	userDetes = userDetes + " " + m_passEncrypt;
-	m_passEncrypt = "";
 }
 
 void Accounts::Print()
 {
-	for (int i = 0; i < L; i++) 
-	{ 
-		m_passEncrypt = m_passEncrypt + std::to_string(encryptValue[i]);
+	for (auto value : encryptValue)
+	{
+		m_passEncrypt += std::to_string(value);
 	}
 }
 
-void Accounts::Store()
+void Accounts::Store() //uses passwordTool template and llambda function
 {
-	MyFile.open("password.txt", std::ios::app);
-	MyFile << userDetes << "\n";
-	MyFile.close();
+	std::string filePath("password.txt");
+	WriteToFile(filePath, std::ios::app, [this](std::fstream& file)
+	{
+		file << userDetes << "\n";
+	});
 }
 
 void Accounts::signIn()
@@ -89,7 +88,8 @@ void Accounts::signIn()
 	try { if (readFile()); 
 		else return;
 		}
-	catch (const std::string fileMissing) {
+	catch (const char* fileMissing) {
+		std::cout << fileMissing;
 		return;
 	}
 
@@ -111,20 +111,20 @@ void Accounts::signIn()
 
 bool Accounts::readFile() throw ()
 {	
-	MyFile.open("password.txt", std::ios::in) ;
-	if (MyFile.fail()) {
-		throw "Missing File ";
+	std::fstream file("password.txt", std::ios::in);
+	if (file.fail()) {
+		throw "Missing File \n";
 	}
 
-	while (getline(MyFile, passwordCompare)) {
+	while (getline(file, passwordCompare)) {
 		if (passwordCompare.find(m_username) != std::string::npos)
 		{
-			MyFile.close();
+			file.close();
 			return true;
 		}
 	}
 	std::cout << "Username not found" << std::endl;
-	MyFile.close();
+	file.close();
 	return false;	
 }
 
@@ -133,9 +133,11 @@ bool Accounts::passwordCheck()
 	std::cout << "Enter Password: " << std::endl;
 	std::cin >> m_userpassword;
 	Encrypt(m_userpassword);
-	if (passwordCompare.find(m_passEncrypt) != std::string::npos)
-	{
-		return true;
-	}
-	else { return false; }
+	std::istringstream iss(passwordCompare);
+	std::string password;
+	char delim = ' ';
+	std::getline(iss, password, delim);
+	std::getline(iss, password, delim);
+
+	return password == m_passEncrypt;	
 }

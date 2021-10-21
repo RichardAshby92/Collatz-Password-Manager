@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "Accounts.h"
+#include "PasswordTool.h"
 
 class FileGeneration : public Accounts {
 private:
@@ -9,8 +10,8 @@ private:
 	std::string* m_passArrayEncrypt = new std::string[20000];
 	std::fstream passwordTest;
 public:
-	FileGeneration();
-	virtual ~FileGeneration();
+	FileGeneration() {};
+	virtual ~FileGeneration() {};
 	void generateFile();
 	void generateArray();
 	void printFile();

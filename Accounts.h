@@ -3,10 +3,10 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include "PasswordTool.h"
 
-class Accounts {
+class Accounts : public PasswordTool {
 protected:
-	std::fstream MyFile;
 	std::string m_username;
 	std::string m_userpassword;
 	std::string m_passEncrypt;
@@ -16,9 +16,12 @@ protected:
 	std::vector<int> encryptValue;
 	
 public:
-	Accounts();
-	~Accounts();
+	Accounts() {};
+	~Accounts() {};
+	virtual void Execute() override;
 	void createAccount();
+
+private:
 	void setUsername();
 	void createPassword();
 	void Encrypt(std::string a);

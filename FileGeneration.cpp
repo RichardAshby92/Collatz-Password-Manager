@@ -3,16 +3,6 @@
 #include <algorithm>
 #include "FileGeneration.h"
 
-FileGeneration::FileGeneration()
-{
-
-}
-
-FileGeneration::~FileGeneration()
-{
-	//delete string array
-}
-
 void FileGeneration::generateFile()
 {
 	std::cout << "Generating File" << std::endl;
@@ -27,7 +17,6 @@ void FileGeneration::generateArray() {
 	int offset = 0;
 	int temp = 0;
 	int x = 0;
-	//srand(time(NULL));
 
 	for (int i = 0; i < 10000; i++)
 	{
@@ -37,9 +26,9 @@ void FileGeneration::generateArray() {
 		}
 		x = n;
 		s = "";
-		//srand(i);
+
 		while (x > 0) {
-			temp = encrypt((rand() % 10 + 97) + offset);
+			temp = encrypt((rand() % 10 + 97) + offset); //missing unique generation
 			offset = temp;
 			s += std::to_string(temp);
 			x--;
@@ -48,33 +37,33 @@ void FileGeneration::generateArray() {
 		m_passArrayEncrypt[i] = s;
 	}
 
-		n = 0;
-		s = "";
-		offset = 0;
-		temp = 0;
-		x = 0;
+	n = 0;
+	s = "";
+	offset = 0;
+	temp = 0;
+	x = 0;
 
-		for (int i = 10000; i < 20000; i++)
+	for (int i = 10000; i < 20000; i++)
+	{
+		if (i % 100 == 0)
 		{
-			if (i % 100 == 0)
-			{
-				n++;
-			}
+			n++;
+		}
 
-			x = n;
-			s = "";
+		x = n;
+		s = "";
 
-			while (x > 0)
-			{
-				srand(i);
-				temp = (encrypt(rand() % 100 + 97) + offset);
-				offset = temp;
-				s += std::to_string(temp);
-				x--;
-			}
+		while (x > 0)
+		{
+			srand(i);
+			temp = (encrypt(rand() % 100 + 97) + offset);
+			offset = temp;
+			s += std::to_string(temp);
+			x--;
+		}
 
-			m_passArrayEncrypt[i] = s;
-		}	
+		m_passArrayEncrypt[i] = s;
+	}	
 }
 
 void FileGeneration::printFile()
