@@ -28,10 +28,10 @@ struct node {
 
 class PasswordAnalysis : public PasswordTool {
 private:	
-	std::vector<int> valuesAtDesiredHeight{ 0 };
+	std::vector<int> valuesAtDesiredHeight{};
 	int desiredHeight{1};
 	std::ifstream testFile{ "passwordtest" };
-	std::vector<int> encryptLine{ 0 };
+	std::vector<int> encryptLine{};
 	int passwordsCracked{ 0 };
 
 public:

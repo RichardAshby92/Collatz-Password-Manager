@@ -23,11 +23,12 @@ void PasswordAnalysis::runAnalysis()
 		decryptLine(encryptLine[i]);
 	}
 
-	std::cout << "Analysis complete" << std::endl;
+
 	auto stop = std::chrono::high_resolution_clock::now();
 	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+	std::cout << "Analysis complete" << std::endl;
 
-	std::cout << "Average time taken to crack passwords: " << (duration.count())/100 << " microseconds" << std::endl;
+	std::cout << "Average time taken to crack password: " << (duration.count())/100 << " microseconds" << std::endl;
 	std::cout << "Percentage passwords cracked: " << passwordsCracked << std::endl;
 }
 
@@ -85,11 +86,8 @@ void PasswordAnalysis::decryptLine(int x) {
 		int Attempt = Encrypt(value);
 		if (Attempt == x)
 		{
-			char out = char(value);
-			std::cout << "password guessed" << std::endl;
-			std::cout << out << std::endl;
 			passwordsCracked++;
-
+			//Will work for multiple return values for single char passwords
 			break;
 		}
 	}
