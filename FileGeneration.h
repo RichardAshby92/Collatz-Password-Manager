@@ -6,9 +6,9 @@
 
 class FileGeneration : public PasswordTool {
 private:
-	std::string* passArray = new std::string[20000]; //remove
 	std::string* passArrayEncrypted = new std::string[20000];
-	std::fstream passwordTest; //remove
+	int tempShuffleArr[100] = { 0 };
+
 public:
 	FileGeneration() {}
 	virtual ~FileGeneration() {}

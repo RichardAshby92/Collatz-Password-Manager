@@ -107,7 +107,11 @@ bool Accounts::readFile() throw ()
 	}
 
 	while (getline(file, passwordCompare)) {
-		if (passwordCompare.find(username) != std::string::npos)
+		std::istringstream iss(passwordCompare);
+		std::string password;
+		char delim = ' ';
+		std::getline(iss, password, delim);
+		if (password == username)
 		{
 			file.close();
 			return true;

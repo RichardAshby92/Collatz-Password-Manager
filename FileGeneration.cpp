@@ -12,6 +12,10 @@ void FileGeneration::Execute()
 void FileGeneration::generateFile()
 {
 	std::cout << "Generating File" << std::endl;
+	for (int i = 32; i < 132; i++)
+	{
+		tempShuffleArr[i - 32] = i;
+	}
 	generateArray();
 	printFile();
 	std::cout << "File Generated" << std::endl;
@@ -35,7 +39,7 @@ void FileGeneration::generateArray() {
 
 		while (x > 0) {
 			temp = encrypt((rand() % 10 + 32) + offset); 
-			offset = temp;
+			if (n > 1) { offset = temp; }
 			s += std::to_string(temp);
 			x--;
 		}
@@ -61,8 +65,8 @@ void FileGeneration::generateArray() {
 
 		while (x > 0)
 		{
-			srand(i);
-			temp = (encrypt(rand() % 100 + 32) + offset); //missing unique generation
+			std::random_shuffle(std::begin(tempShuffleArr), std::end(tempShuffleArr));
+			temp = encrypt((tempShuffleArr[0]) + offset);
 			offset = temp;
 			s += std::to_string(temp);
 			x--;
