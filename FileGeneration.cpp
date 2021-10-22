@@ -67,7 +67,7 @@ void FileGeneration::generateArray() {
 		{
 			std::random_shuffle(std::begin(tempShuffleArr), std::end(tempShuffleArr));
 			temp = encrypt((tempShuffleArr[0]) + offset);
-			offset = temp;
+			if (n > 1) { offset = temp; }
 			s += std::to_string(temp);
 			x--;
 		}

@@ -21,7 +21,7 @@ void Accounts::createAccount()
 
 void Accounts::setUsername()
 {
-	std::cin >> username; //if statement
+	std::cin >> username;
 	userDetes = username;
 }
 
@@ -61,7 +61,7 @@ void Accounts::Encrypt(std::string a)
 	userDetes = userDetes + " " + passEncrypt;
 }
 
-void Accounts::Store() //uses passwordTool template and llambda function
+void Accounts::Store()
 {
 	std::string filePath("password.txt");
 	WriteToFile(filePath, std::ios::app, [this](std::fstream& file)
