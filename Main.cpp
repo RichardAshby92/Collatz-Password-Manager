@@ -6,9 +6,9 @@
 
 int main()
 {
-	Accounts a1;
-	FileGeneration p1;
-	PasswordAnalysis x1;
+	Accounts accounts;
+	FileGeneration fileGeneration;
+	PasswordAnalysis passwordAnalysis;
 
 	int x;
 	bool t = true;
@@ -29,16 +29,16 @@ int main()
 			t = false;
 			break;
 		case 1:
-			a1.createAccount();
+			accounts.createAccount();
 			break;
 		case 2:
-			a1.Execute();
+			accounts.Execute();
 			break;
 		case 3:
-			p1.Execute();
+			fileGeneration.Execute();
 			break;
 		case 4:
-			x1.Execute();
+			passwordAnalysis.Execute();
 			break;
 		default:
 			std::cout << "Invalid Selection" << std::endl;
